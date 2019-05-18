@@ -1,0 +1,15 @@
+{
+  "name": "mathdoc",
+  "version": "0.0.0",
+  "description": "A markdown extension for scientific writings.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && pegjs -o build/mathdoc_syntax.js src/mathdoc_syntax.pegjs",
+    "test" : "mocha ./build/test/*.test.js"
+  },
+  "keywords": [
+    "markdown"
+  ],
+  "author": "",
+  "license": "ISC"
+}
