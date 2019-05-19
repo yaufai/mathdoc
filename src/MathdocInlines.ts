@@ -15,38 +15,38 @@ export type MathdocInline
     | MathdocCodeInline
     | MathdocRawChars
 
-export function createBold(content: [MathdocInline]): MathdocBold {
+export function createBold(content: MathdocInline[]): MathdocBold {
     return {
         type   : InlineType.Bold,
         content: content
     }
 }
-export function createItalic(content: [MathdocInline]): MathdocItalic {
+export function createItalic(content: MathdocInline[]): MathdocItalic {
     return {
         type   : InlineType.Italic,
         content: content
     }
 }
-export function createLink(content: [MathdocInline], reference: string): MathdocLink {
+export function createMathdocLink(content: MathdocInline[], reference: string): MathdocLink {
     return {
         type   : InlineType.Link,
         content: content,
         reference: reference
     }
 }
-export function createMathInline(content: string): MathdocMathInline {
+export function createMathdocMathInline(content: string): MathdocMathInline {
     return {
         type   : InlineType.MathInline,
         content: content
     }
 }
-export function createCodeInline(content: string): MathdocCodeInline {
+export function createMathdocCodeInline(content: string): MathdocCodeInline {
     return {
         type   : InlineType.CodeInline,
         content: content
     }
 }
-export function createRawChars(content: string): MathdocRawChars {
+export function createMathdocRawChars(content: string): MathdocRawChars {
     return {
         type   : InlineType.RawChars,
         content: content
@@ -55,15 +55,15 @@ export function createRawChars(content: string): MathdocRawChars {
 
 export type MathdocBold = {
     type   : InlineType,
-    content: [MathdocInline]
+    content: MathdocInline[]
 }
 export type MathdocItalic = {
     type   : InlineType,
-    content: [MathdocInline]
+    content: MathdocInline[]
 }
 export type MathdocLink = {
     type   : InlineType,
-    content: [MathdocInline],
+    content: MathdocInline[],
     reference: string
 }
 export type MathdocMathInline = {

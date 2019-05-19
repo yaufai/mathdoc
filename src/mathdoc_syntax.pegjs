@@ -126,7 +126,7 @@ CodeBlock  = "```" name:RawChars? LineBreak content:SourceCode "```" LineBreak {
     )
 }
 QuoteBlock = content:QuoteLine+ {
-    return MathdocBlocks.createQuote(content)
+    return MathdocBlocks.createMathdocQuote(content)
 }
     QuoteLine = ">" _+ content:"[^\n]"+ LineBreak {
         return MathBlocks.createQuoteLine(content)
@@ -136,7 +136,7 @@ Paragraph  = content:Inlines LineBreak {
 }
 EmptyLine  = LineBreak
 IndentedLines = IndentedLine+
-    IndentedLine = indent:_+ content:Inlines LineBreak {
+    IndentedLine = indent:$_+ content:Inlines LineBreak {
         return MathdocBlocks.createIndentedLine(
             indent,
             content
@@ -160,7 +160,7 @@ CodeInline = "`" content:SourceCode "`" {
     return MathdocInlines.createMathdocCodeInline(content)
 }
 RawChars   = content:$([^\n*$_\[])+ {
-    return MathdocInlines.createRawChars(content)
+    return MathdocInlines.createMathdocRawChars(content)
 }
 
 BracketInlines = "[" content:$(!"]" .)* "]"  { return content }
@@ -171,6 +171,6 @@ SourceCode     = $[^`]*
 
 
 LineBreak   = "\n"  {
-    return MathdocBlocks.createEmptyLine()
+    return MathdocBlocks.createMathdocEmptyLine()
 }
 _           = " "

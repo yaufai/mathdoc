@@ -50,7 +50,7 @@ export function createMathdocComment(content: string): MathdocComment {
     }
 }
 
-export function createMathdocDefinition(title: [MathdocInline], content: BoxBody): MathdocDefinition {
+export function createMathdocDefinition(title: MathdocInline[], content: BoxBody): MathdocDefinition {
     return {
         type   : BlockType.Definition,
         title  : title,
@@ -58,7 +58,7 @@ export function createMathdocDefinition(title: [MathdocInline], content: BoxBody
     }
 }
 
-export function createMathdocTheorem(title: [MathdocInline], content: BoxBody): MathdocTheorem {
+export function createMathdocTheorem(title: MathdocInline[], content: BoxBody): MathdocTheorem {
     return {
         type   : BlockType.Theorem,
         title  : title,
@@ -66,7 +66,7 @@ export function createMathdocTheorem(title: [MathdocInline], content: BoxBody): 
     } 
 }
 
-export function createMathdocProof(title: [MathdocInline], content: BoxBody): MathdocProof {
+export function createMathdocProof(title: MathdocInline[], content: BoxBody): MathdocProof {
     return {
         type   : BlockType.Proof,
         title  : title,
@@ -74,21 +74,21 @@ export function createMathdocProof(title: [MathdocInline], content: BoxBody): Ma
     }
 }
 
-export function createIndentedLine(indent: string, content: [MathdocInline]): IndentedLine {
+export function createIndentedLine(indent: string, content: MathdocInline[]): IndentedLine {
     return {
         indent : indent,
         content: content
     }
 }
 
-export function createMathdocList(items: [ListItem]): MathdocList {
+export function createMathdocList(items: ListItem[]): MathdocList {
     return {
         type   : BlockType.List,
         items  : items
     }
 }
 
-export function createListItem(content: [MathdocInline]): ListItem {
+export function createListItem(content: MathdocInline[]): ListItem {
     // TODO: Implement
     return {
         point  : "*",
@@ -111,42 +111,42 @@ export function createMathdocHorizontalLine(): MathdocHorizontalLine {
     }
 }
 
-export function createMathdocH6(content: [MathdocInline]): MathdocH6 {
+export function createMathdocH6(content: MathdocInline[]): MathdocH6 {
     return {
         type   : BlockType.H6,
         content: content
     }
 }
 
-export function createMathdocH5(content: [MathdocInline]): MathdocH5 {
+export function createMathdocH5(content: MathdocInline[]): MathdocH5 {
     return {
         type   : BlockType.H5,
         content: content
     }
 }
 
-export function createMathdocH4(content: [MathdocInline]): MathdocH4 {
+export function createMathdocH4(content: MathdocInline[]): MathdocH4 {
     return {
         type   : BlockType.H4,
         content: content
     }
 }
 
-export function createMathdocH3(content: [MathdocInline]): MathdocH3 {
+export function createMathdocH3(content: MathdocInline[]): MathdocH3 {
     return {
         type   : BlockType.H3,
         content: content
     }
 }
 
-export function createMathdocH2(content: [MathdocInline]): MathdocH2 {
+export function createMathdocH2(content: MathdocInline[]): MathdocH2 {
     return {
         type   : BlockType.H2,
         content: content
     }
 }
 
-export function createMathdocH1(content: [MathdocInline]): MathdocH1 {
+export function createMathdocH1(content: MathdocInline[]): MathdocH1 {
     return {
         type   : BlockType.H1,
         content: content
@@ -174,7 +174,7 @@ export function createMathdocCodeBlock(content: string): MathdocCodeBlock {
     }
 }
 
-export function createMathdocQuote(content: [QuoteLine]): MathdocQuote {
+export function createMathdocQuote(content: QuoteLine[]): MathdocQuote {
     return {
         type   : BlockType.QuoteBlock,
         content: content
@@ -187,7 +187,7 @@ export function createQuoteLine(content: string): QuoteLine {
     }
 }
 
-export function createMathdocParagraph(content: [MathdocInline]): MathdocParagraph {
+export function createMathdocParagraph(content: MathdocInline[]): MathdocParagraph {
     return {
         type   : BlockType.Paragraph,
         content: content
@@ -208,33 +208,33 @@ export type MathdocComment = {
 
 export type MathdocDefinition = {
     type   : BlockType,
-    title  : [ MathdocInline ],
+    title  : MathdocInline[],
     content: BoxBody
 }
 
 export type MathdocProof = {
     type   : BlockType,
-    title  : [ MathdocInline ],
+    title  : MathdocInline[],
     content: BoxBody
 }
 
 export type MathdocTheorem = {
     type   : BlockType,
-    title  : [ MathdocInline ],
+    title  : MathdocInline[],
     content: BoxBody
 }
 
 // TODO: adopt block elements
-export type BoxBody = IndentedLine
+export type BoxBody = IndentedLine[]
 
 export type IndentedLine = {
     indent : string,
-    content: [MathdocInline]
+    content: MathdocInline[]
 }
 
 export type MathdocList = {
     type   : BlockType,
-    items  : [ ListItem ]
+    items  : ListItem[]
 }
 
 export type MathdocImage = {
@@ -249,32 +249,32 @@ export type MathdocHorizontalLine = {
 
 export type MathdocH1 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocH2 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocH3 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocH4 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocH5 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocH6 = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocTOC = {
@@ -293,12 +293,12 @@ export type MathdocCodeBlock = {
 
 export type MathdocQuote = {
     type   : BlockType,
-    content: [ QuoteLine ]
+    content: QuoteLine[]
 }
 
 export type MathdocParagraph = {
     type   : BlockType,
-    content: [ MathdocInline ]
+    content: MathdocInline[]
 }
 
 export type MathdocEmptyLine = {
@@ -311,6 +311,6 @@ export type QuoteLine = {
 
 export type ListItem  = {
     point  : string,
-    content: [ MathdocInline ],
+    content: MathdocInline[],
     indent : number
 }
