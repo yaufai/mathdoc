@@ -19,6 +19,10 @@ export class Mathdoc {
         return this.syntaxTree
     }
 
+    getSyntaxTreeJSON(): string {
+        return JSON.stringify(this.syntaxTree)
+    }
+
     compileToHTML(): string {
         return this.compiler.compile(this.syntaxTree)
     }
