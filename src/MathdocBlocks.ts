@@ -39,7 +39,7 @@ export type MathdocBlock
     | MathdocTOC
     | MathdocMathBlock
     | MathdocCodeBlock
-    | MathdocQuote
+    | MathdocQuoteBlock
     | MathdocParagraph
     | MathdocEmptyLine
 
@@ -174,7 +174,7 @@ export function createMathdocCodeBlock(content: string): MathdocCodeBlock {
     }
 }
 
-export function createMathdocQuote(content: QuoteLine[]): MathdocQuote {
+export function createMathdocQuoteBlock(content: QuoteLine[]): MathdocQuoteBlock {
     return {
         type   : BlockType.QuoteBlock,
         content: content
@@ -291,7 +291,7 @@ export type MathdocCodeBlock = {
     content: string
 }
 
-export type MathdocQuote = {
+export type MathdocQuoteBlock = {
     type   : BlockType,
     content: QuoteLine[]
 }
@@ -313,4 +313,62 @@ export type ListItem  = {
     point  : string,
     content: MathdocInline[],
     indent : number
+}
+
+export function isComment(arg: any): arg is MathdocComment {
+    return arg.type === BlockType.Comment
+}
+export function isDefinition(arg: any): arg is MathdocDefinition {
+    return arg.type === BlockType.Definition
+}
+export function isTheorem(arg: any): arg is MathdocTheorem {
+    return arg.type === BlockType.Theorem
+}
+export function isProof(arg: any): arg is MathdocProof {
+    return arg.type === BlockType.Proof
+}
+export function isList(arg: any): arg is MathdocList {
+    return arg.type === BlockType.List
+}
+export function isImage(arg: any): arg is MathdocImage {
+    return arg.type === BlockType.Image
+}
+export function isHorizontalLine(arg: any): arg is MathdocHorizontalLine {
+    return arg.type === BlockType.HorizontalLine
+}
+export function isH6(arg: any): arg is MathdocH6 {
+    return arg.type === BlockType.H6
+}
+export function isH5(arg: any): arg is MathdocH5 {
+    return arg.type === BlockType.H5
+}
+export function isH4(arg: any): arg is MathdocH4 {
+    return arg.type === BlockType.H4
+}
+export function isH3(arg: any): arg is MathdocH3 {
+    return arg.type === BlockType.H3
+}
+export function isH2(arg: any): arg is MathdocH2 {
+    return arg.type === BlockType.H2
+}
+export function isH1(arg: any): arg is MathdocH1 {
+    return arg.type === BlockType.H1
+}
+export function isTOC(arg: any): arg is MathdocTOC {
+    return arg.type === BlockType.TOC
+}
+export function isMathBlock(arg: any): arg is MathdocMathBlock {
+    return arg.type === BlockType.MathBlock
+}
+export function isCodeBlock(arg: any): arg is MathdocCodeBlock {
+    return arg.type === BlockType.CodeBlock
+}
+export function isQuoteBlock(arg: any): arg is MathdocQuoteBlock {
+    return arg.type === BlockType.QuoteBlock
+}
+export function isParagraph(arg: any): arg is MathdocParagraph {
+    return arg.type === BlockType.Paragraph
+}
+export function isEmptyLine(arg: any): arg is MathdocEmptyLine {
+    return arg.type === BlockType.EmptyLine
 }

@@ -1,5 +1,5 @@
 import { MathdocDocument } from "./MathdocDocument";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuote, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
 import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars } from "./MathdocInlines";
 
 export abstract class AbstractCompiler {
@@ -26,7 +26,7 @@ export abstract class AbstractCompiler {
     abstract evaluateTOC(block: MathdocTOC): string
     abstract evaluateMathBlock(block: MathdocMathBlock): string
     abstract evaluateCodeBlock(block: MathdocCodeBlock): string
-    abstract evaluateQuote(block: MathdocQuote): string
+    abstract evaluateQuote(block: MathdocQuoteBlock): string
     abstract evaluateParagraph(block: MathdocParagraph): string
     abstract evaluateEmptyLine(block: MathdocEmptyLine): string
 
