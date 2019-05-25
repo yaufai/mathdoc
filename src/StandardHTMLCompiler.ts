@@ -1,6 +1,5 @@
 import { AbstractCompiler } from "./AbstractCompiler";
-import { MathdocDocument } from "./MathdocDocument";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuote, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
 import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars } from "./MathdocInlines";
 
 function getBoxHTML(type: string, header: string, body: string): string {
@@ -11,9 +10,6 @@ function getBoxHTML(type: string, header: string, body: string): string {
 }
 
 export class StandardHTMLCompiler extends AbstractCompiler {
-    compile(document: MathdocDocument): string {
-        throw new Error("Method not implemented.");
-    }
     evaluateComment(block: MathdocComment): string {
         throw new Error("Method not implemented.");
     }
@@ -62,7 +58,7 @@ export class StandardHTMLCompiler extends AbstractCompiler {
     evaluateCodeBlock(block: MathdocCodeBlock): string {
         throw new Error("Method not implemented.");
     }
-    evaluateQuote(block: MathdocQuote): string {
+    evaluateQuoteBlock(block: MathdocQuoteBlock): string {
         throw new Error("Method not implemented.");
     }
     evaluateParagraph(block: MathdocParagraph): string {
