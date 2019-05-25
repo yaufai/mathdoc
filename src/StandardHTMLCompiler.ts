@@ -3,6 +3,13 @@ import { MathdocDocument } from "./MathdocDocument";
 import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuote, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
 import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars } from "./MathdocInlines";
 
+function getBoxHTML(type: string, header: string, body: string): string {
+    var box_body    = wrapHTML("p", body, {"class": type + "_box_body" })
+    var header_flag = wrapHTML("span", type + ". ", {"class": type + "_box_flag"})
+    var header_body = wrapHTML("span", header_flag + header, {"class": type + "_box_title"})
+    return wrapHTML("div", header_body + box_body, { "class": '"' + type + '_box common_box"' })
+}
+
 export class StandardHTMLCompiler extends AbstractCompiler {
     compile(document: MathdocDocument): string {
         throw new Error("Method not implemented.");
