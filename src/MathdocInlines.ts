@@ -78,3 +78,22 @@ export type MathdocRawChars = {
     type   : InlineType,
     content: string
 }
+
+export function isBold(arg: any): arg is MathdocBold {
+    return arg.type === InlineType.Bold
+}
+export function isItalic(arg: any): arg is MathdocItalic {
+    return arg.type === InlineType.Italic
+}
+export function isLink(arg: any): arg is MathdocLink {
+    return arg.type === InlineType.Link
+}
+export function isMathInline(arg: any): arg is MathdocMathInline {
+    return arg.type === InlineType.MathInline
+}
+export function isCodeInline(arg: any): arg is MathdocCodeInline {
+    return arg.type === InlineType.CodeInline
+}
+export function isRawChars(arg: any): arg is MathdocRawChars {
+    return arg.type === InlineType.RawChars
+}
