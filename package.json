@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "description": "A markdown extension for scientific writings.",
   "main": "index.js",
+  "bin" :{
+    "mathdoc": "build/index.js"
+  },
+  "files": [
+    "build/*.js"
+  ],
   "scripts": {
     "build": "tsc && pegjs -o build/mathdoc_syntax.js src/mathdoc_syntax.pegjs",
     "test" : "mocha ./build/test/*.test.js"
