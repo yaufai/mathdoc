@@ -1,89 +1,109 @@
 import { AbstractCompiler } from "./AbstractCompiler";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine } from "./MathdocBlocks";
-import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars } from "./MathdocInlines";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, BoxBody } from "./MathdocBlocks";
+import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline } from "./MathdocInlines";
 
-function getBoxHTML(type: string, header: string, body: string): string {
-    var box_body    = wrapHTML("p", body, {"class": type + "_box_body" })
-    var header_flag = wrapHTML("span", type + ". ", {"class": type + "_box_flag"})
-    var header_body = wrapHTML("span", header_flag + header, {"class": type + "_box_title"})
-    return wrapHTML("div", header_body + box_body, { "class": '"' + type + '_box common_box"' })
-}
 
 export class StandardHTMLCompiler extends AbstractCompiler {
+    getBoxHTML(type: string, header: MathdocInline[], body: BoxBody): string {
+        var box_content = body.reduce(
+            (acc, cur, _) => {
+                return acc + this.evaluate(cur.content)
+            },
+            ""
+        )
+        var box_body    = wrapHTML("p", box_content, {"class": type + "_box_body" })
+        var header_flag = wrapHTML("span", type + ". ", {"class": type + "_box_flag"})
+        var header_body = wrapHTML("span", header_flag + this.evaluate(header), {"class": type + "_box_title"})
+        return wrapHTML("div", header_body + box_body, { "class": '"' + type + '_box common_box"' })
+    }
     evaluateComment(block: MathdocComment): string {
-        throw new Error("Method not implemented.");
+        return ""
     }
     evaluateDefinition(block: MathdocDefinition): string {
-        throw new Error("Method not implemented.");
+        return this.getBoxHTML("def", block.title, block.content) 
     }
     evaluateTheorem(block: MathdocTheorem): string {
-        throw new Error("Method not implemented.");
+        return this.getBoxHTML("th", block.title, block.content)
     }
     evaluateProof(block: MathdocProof): string {
-        throw new Error("Method not implemented.");
+        return this.getBoxHTML("pf", block.title, block.content)
     }
     evaluateList(block: MathdocList): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("ul", block.items.reduce(
+            (acc, cur) => {
+                return wrapHTML("li", this.evaluate(cur.content), {})
+            }, ""
+        ), {}
+        )
     }
     evaluateImage(block: MathdocImage): string {
-        throw new Error("Method not implemented.");
+        return '<img alt="' + block.alternative + '" src="' + block.reference + '">'
     }
     evaluateHorizontalLine(block: MathdocHorizontalLine): string {
-        throw new Error("Method not implemented.");
+        return "<hr>"
     }
     evaluateH6(block: MathdocH6): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h6", this.evaluate(block.content), {})
     }
     evaluateH5(block: MathdocH5): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h5", this.evaluate(block.content), {})
     }
     evaluateH4(block: MathdocH4): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h4", this.evaluate(block.content), {})
     }
     evaluateH3(block: MathdocH3): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h3", this.evaluate(block.content), {})
     }
     evaluateH2(block: MathdocH2): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h2", this.evaluate(block.content), {})
     }
     evaluateH1(block: MathdocH1): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("h1", this.evaluate(block.content), {})
     }
     evaluateTOC(block: MathdocTOC): string {
-        throw new Error("Method not implemented.");
+        // TODO: Implement
+        return ""
     }
     evaluateMathBlock(block: MathdocMathBlock): string {
-        throw new Error("Method not implemented.");
+        return "$$" + block.content + "$$"
     }
     evaluateCodeBlock(block: MathdocCodeBlock): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML(
+            "pre",
+            wrapHTML("code", block.content, {}),
+            {}
+        )
     }
     evaluateQuoteBlock(block: MathdocQuoteBlock): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("blockquote", block.content.reduce((acc, cur) => acc + cur, ""), {})
     }
     evaluateParagraph(block: MathdocParagraph): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("p", this.evaluate(block.content), {})
     }
     evaluateEmptyLine(block: MathdocEmptyLine): string {
-        throw new Error("Method not implemented.");
+        return "<br>"
     }
     evaluateBold(inline: MathdocBold): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("strong", this.evaluate(inline.content), {})
     }
     evaluateItalic(inline: MathdocItalic): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("i", this.evaluate(inline.content), {})
     }
     evaluateLink(inline: MathdocLink): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML("a", this.evaluate(inline.content), {"href": inline.reference})
     }
     evaluateMathInline(inline: MathdocMathInline): string {
-        throw new Error("Method not implemented.");
+        return "$" + inline.content + "$"
     }
     evaluateCodeInline(inline: MathdocCodeInline): string {
-        throw new Error("Method not implemented.");
+        return wrapHTML(
+            "pre",
+            wrapHTML("code", inline.content, {}),
+            {}
+        )
     }
     evaluateRawChars(inline: MathdocRawChars): string {
-        throw new Error("Method not implemented.");
+        return inline.content
     }
 
     

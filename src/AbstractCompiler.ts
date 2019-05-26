@@ -1,10 +1,17 @@
 import { MathdocDocument } from "./MathdocDocument";
 import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, MathdocBlock, QuoteLine, ListItem, isComment, isDefinition, isTheorem, isProof, isList, isImage, isHorizontalLine, isH6, isH5, isH4, isH3, isH2, isH1, isTOC, isMathBlock, isCodeBlock, isQuoteBlock, isParagraph, isEmptyLine, IndentedLine, BoxBody } from "./MathdocBlocks";
 import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline, isBold, isItalic, isLink, isMathInline, isCodeInline, isRawChars } from "./MathdocInlines";
+import { isArray } from "util";
 
 export type Evaluatable
     = MathdocBlock
     | MathdocInline
+    | Array<MathdocBlock|MathdocInline>
+
+export function isEvaluatableArray(arg: any): arg is Array<MathdocBlock|MathdocInline> {
+    // TODO: implement a strict judge
+    return isArray(arg)
+}
 
 export abstract class AbstractCompiler {
     document: MathdocDocument
@@ -17,7 +24,14 @@ export abstract class AbstractCompiler {
         throw new Error("Method not implemented.");
     }
     evaluate(element: Evaluatable): string {
-        if (isComment(element)) {
+        if (isEvaluatableArray(element)) {
+            return element.reduce(
+                (acc, cur, _) => {
+                    return acc + this.evaluate(cur)
+                },
+                ""
+            )
+        } else if (isComment(element)) {
             return this.evaluateComment(element)
         } else if (isDefinition(element)) {
             return this.evaluateDefinition(element)
