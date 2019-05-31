@@ -21,7 +21,8 @@ export abstract class AbstractCompiler {
     }
 
     compile(document: MathdocDocument): string {
-        throw new Error("Method not implemented.");
+        // Adopt multiple pages
+        return this.evaluate(document.pages[0].blocks)
     }
     evaluate(element: Evaluatable): string {
         if (isEvaluatableArray(element)) {
