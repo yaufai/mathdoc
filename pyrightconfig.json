@@ -1,6 +1,6 @@
 {
     "include": [
-        "src-py"
+        "mathdocpy"
     ],
     "ignore": [
         "venv"
@@ -8,7 +8,7 @@
     "venvPath": "venv",
     "executionEnvironments": [
         {
-            "root": "src-py"
+            "root": "."
         }
     ]
 }
