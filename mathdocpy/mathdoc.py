@@ -1,6 +1,6 @@
 import json
 import subprocess
-from file_utils import get_regular_path, is_acceptable_file
+from mathdocpy.file_utils import get_regular_path, is_acceptable_file
 
 class Mathdoc:
     def __init__(self, file_location: str):
