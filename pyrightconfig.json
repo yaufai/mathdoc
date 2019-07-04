@@ -1,0 +1,14 @@
+{
+    "include": [
+        "src-py"
+    ],
+    "ignore": [
+        "venv"
+    ],
+    "venvPath": "venv",
+    "executionEnvironments": [
+        {
+            "root": "src-py"
+        }
+    ]
+}
