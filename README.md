@@ -74,3 +74,52 @@ doc = Mathdoc(file_path)
 
 * `Mathdoc.compile`: returns the HTML transpilation of your document as a `str` object
 * `Mathdoc.getAST` : returns the abstract syntax tree (AST) in the JSON-like format
+
+# Syntax
+
+## Document config
+
+Meta data of your document can be stored at the top of the document.
+
+```
+==================================================
+title  : Mathdoc example
+author : yaufai
+tags   : Mathdoc, Documentation
+==================================================
+```
+
+Just like the example above, it has the format of `key : value`. The key can only contain English alphabets and digits.
+
+The meta data do not appear on the compiled documents. So far, in this repository the function of meta data has no use, but apps that depend on Mathdoc may utilize this function.
+
+### Interface
+
+#### Command line tool
+
+```
+mathdoc getast --document-config <target_file>
+```
+
+This command will only output the config in JSON format.
+
+#### JS library
+
+```ts
+let mathdoc = new Mathdoc(target_file)
+// To obtain the config object
+let config = mathdoc.getConfig()
+// To obtain the config in JSON string format 
+let config_json = mathdoc.getConfigJSON()
+```
+
+#### Python
+
+```py
+from mathdocpy.mathdoc import Mathdoc
+doc = Mathdoc(target_file)
+# Obtain the config in dict
+config_dict = doc.get_config_dict()
+# Obtain the config in str JSON
+config_json = doc.get_config_json()
+```
