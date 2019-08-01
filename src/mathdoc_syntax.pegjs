@@ -10,7 +10,7 @@ DocumentConfig = EmptyLine* DocumentConfigDeclaration? content:KeyValue* Documen
 DocumentConfigDeclaration = "="+ LineBreak+
 KeyValue = keyName:KeyName Sep value:Value LineBreak { return [keyName, value] }
 KeyName  = $[a-zA-Z_0-9]+
-Value    = $[a-zA-Z_0-9]+
+Value    = $[a-zA-Z_0-9 ]+
 Sep      = _* ":" _*
 
 Pages      = pages:Page* term:PageTerm { return pages.concat([term]) }
