@@ -28,6 +28,6 @@ export class Mathdoc {
     }
 
     getConfigJSON(): string {
-        return JSON.stringify(this.syntaxTree["DocumentConfig"])
+        return JSON.stringify(this.syntaxTree["DocumentConfig"]["content"])
     }
 }

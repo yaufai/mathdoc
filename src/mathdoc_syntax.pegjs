@@ -3,14 +3,21 @@
     const MathdocInlines  = require("./MathdocInlines")
     const MathdocBlocks   = require("./MathdocBlocks")
     const MathdocPage     = require("./MathdocPage")
+    function convertTuplesToAssociatedArray(data) {
+        let obj = {};
+        data.forEach((pair) => {
+            obj[pair[0]] = pair[1];
+        })
+        return obj;
+    }
 }
 
 Document = docConfig:DocumentConfig? pages:Pages { return { DocumentConfig: docConfig, pages: pages }}
-DocumentConfig = EmptyLine* DocumentConfigDeclaration? content:KeyValue* DocumentConfigDeclaration { return {name: "DocumentConfig", content:content}}
+DocumentConfig = EmptyLine* DocumentConfigDeclaration? kv:KeyValue* DocumentConfigDeclaration { return {name: "DocumentConfig", content:convertTuplesToAssociatedArray(kv)}}
 DocumentConfigDeclaration = "="+ LineBreak+
 KeyValue = keyName:KeyName Sep value:Value LineBreak { return [keyName, value] }
 KeyName  = $[a-zA-Z_0-9]+
-Value    = $[a-zA-Z_0-9 ]+
+Value    = $[^\n]+
 Sep      = _* ":" _*
 
 Pages      = pages:Page* term:PageTerm { return pages.concat([term]) }
