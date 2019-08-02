@@ -21,4 +21,4 @@ class Mathdoc:
     def getConfig(self) -> Dict[str, str]:
         return json.loads(
             subprocess.check_output(["mathdoc", "--getast", self.file_location, "--config-only"])
-        )["content"]
+        )
