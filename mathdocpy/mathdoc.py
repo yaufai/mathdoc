@@ -10,9 +10,14 @@ class Mathdoc:
             raise FileNotFoundError("The file filename not found.".replace("filename", file_location))
     
     def compile(self) -> str:
-        return subprocess.check_output(["mathdoc", "compile", self.file_location]).decode('utf-8')
+        return subprocess.check_output(["mathdoc", "--compile", self.file_location]).decode('utf-8')
     
     def getAST(self) -> dict:
         return json.loads(
-            subprocess.check_output(["mathdoc", "getast", self.file_location])
+            subprocess.check_output(["mathdoc", "--getast", self.file_location])
         )
+    
+    def getConfig(self) -> dict:
+        return json.loads(
+            subprocess.check_output(["mathdoc", "--getast", self.file_location, "--config-only"])
+        )["content"]
