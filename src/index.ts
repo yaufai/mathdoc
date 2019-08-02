@@ -18,7 +18,7 @@ function computeAST(file_location: string, getastConfig: GetASTConfig): string {
 
 let fs     = require('fs')
 
-const commandLineOptions = parseCommand(process.argv)
+const commandLineOptions = parseCommand()
 
 let mode   = commandLineOptions.getExecMode()
 
