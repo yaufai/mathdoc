@@ -26,4 +26,8 @@ export class Mathdoc {
     compileToHTML(): string {
         return this.compiler.compile(this.syntaxTree)
     }
+
+    getConfigJSON(): string {
+        return JSON.stringify(this.syntaxTree["DocumentConfig"])
+    }
 }

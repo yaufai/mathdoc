@@ -13,7 +13,11 @@ function computeAST(filePath: string, getastConfig: GetASTConfig): string {
     let text: string = fs.readFileSync(filePath, 'utf-8')
 
     let mathdoc: Mathdoc = new Mathdoc(text)
-    return mathdoc.getSyntaxTreeJSON()
+    if (getastConfig.configOnly) {
+        return mathdoc.getConfigJSON()
+    } else{
+        return mathdoc.getSyntaxTreeJSON()
+    }
 }
 
 let fs     = require('fs')
