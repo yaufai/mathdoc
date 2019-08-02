@@ -49,14 +49,14 @@ pip3 install mathdocpy
 
 In your terminal app, you can get the HTML transpilation of your mathdoc markdown document through the standard output.
 ```
-mathdoc compile path_to_file
+mathdoc --compile path_to_file
 ```
 
 ### GetAST
 
 If you want to get the abstract syntax tree (AST) of your document in order to process the document in your application, you can get the AST in JSON format as:
 ```
-mathdoc getast path_to_file
+mathdoc --getast path_to_file
 ```
 
 ## Python
@@ -98,7 +98,7 @@ The meta data do not appear on the compiled documents. So far, in this repositor
 #### Command line tool
 
 ```
-mathdoc getast --document-config <target_file>
+mathdoc --getast <target_file> --config-only
 ```
 
 This command will only output the config in JSON format.
@@ -119,7 +119,5 @@ let config_json = mathdoc.getConfigJSON()
 from mathdocpy.mathdoc import Mathdoc
 doc = Mathdoc(target_file)
 # Obtain the config in dict
-config_dict = doc.get_config_dict()
-# Obtain the config in str JSON
-config_json = doc.get_config_json()
+config_dict = doc.getConfig()
 ```
