@@ -8,10 +8,10 @@ export type GetASTConfig  = {
 
 export class CommandLineArgModel {
     mode         : ExecMode
-    targetFile   : String
+    targetFile   : string
     getastConfig : GetASTConfig
     compileConfig: CompileConfig
-    constructor(mode: ExecMode, targetFile: String, getastConfig: GetASTConfig, compileConfig: CompileConfig) {
+    constructor(mode: ExecMode, targetFile: string, getastConfig: GetASTConfig, compileConfig: CompileConfig) {
         this.mode = mode
         this.targetFile    = targetFile
         this.getastConfig  = getastConfig
