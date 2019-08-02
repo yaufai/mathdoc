@@ -20,12 +20,3 @@ export function isExecMode(arg: any): arg is ExecMode {
         return false
     }
 }
-
-export function getExecMode(): ExecMode {
-    let mode = process.argv[2]
-    if (isExecMode(mode)) {
-        return mode
-    } else {
-        throw new UnknownExecModeError('"' + mode + '" is not a valid mode.')
-    }
-}
