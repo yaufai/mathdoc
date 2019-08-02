@@ -1,3 +1,4 @@
+from typing import Dict
 import json
 import subprocess
 from mathdocpy.file_utils import get_regular_path, is_acceptable_file
@@ -17,7 +18,7 @@ class Mathdoc:
             subprocess.check_output(["mathdoc", "--getast", self.file_location])
         )
     
-    def getConfig(self) -> dict:
+    def getConfig(self) -> Dict[str, str]:
         return json.loads(
             subprocess.check_output(["mathdoc", "--getast", self.file_location, "--config-only"])
         )["content"]
