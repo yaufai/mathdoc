@@ -32,6 +32,11 @@ export class Mathdoc {
     }
 
     getConfigJSON(): string {
-        return JSON.stringify(this.syntaxTree["DocumentConfig"])
+        const result = this.syntaxTree["DocumentConfig"]
+        if (result == null) {
+            return JSON.stringify({})
+        } else {
+            return JSON.stringify(result)
+        }
     }
 }
