@@ -128,7 +128,7 @@ MathBlock  = _* "$$" content:MathExpression "$$" LineBreak {
     return MathdocBlocks.createMathdocMathBlock(content)
 }
 CodeBlock  = "```" name:RawChars? LineBreak content:SourceCode "```" LineBreak {
-    return MathdocBlocks.MathdocCodeBlock(
+    return MathdocBlocks.createMathdocCodeBlock(
         content
     )
 }
@@ -151,11 +151,11 @@ IndentedLines = IndentedLine+
     }
 Bold   = StaredBold
     StaredBold = "**" content:Inlines "**" {
-    return MathdocInlines.createMathdocBold(content)
+    return MathdocInlines.createBold(content)
 }
 Italic = UnderbaredItalic
     UnderbaredItalic = "_" content:Inlines "_" {
-    return MathdocInlines.createMathdocItalic(content)
+    return MathdocInlines.createItalic(content)
 }
 Link   = content:BracketInlines reference:RoundedInlines {
     return MathdocInlines.createMathdocLink(content, reference)
