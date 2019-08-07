@@ -88,12 +88,11 @@ export function createMathdocList(items: ListItem[]): MathdocList {
     }
 }
 
-export function createListItem(content: MathdocInline[]): ListItem {
-    // TODO: Implement
+export function createListItem(content: MathdocInline[], indent: string): ListItem {
     return {
         point  : "*",
         content: content,
-        indent : 1
+        indent : indent
     }
 }
 
@@ -312,7 +311,7 @@ export type QuoteLine = {
 export type ListItem  = {
     point  : string,
     content: MathdocInline[],
-    indent : number
+    indent : string
 }
 
 export function isComment(arg: any): arg is MathdocComment {

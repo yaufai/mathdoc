@@ -83,8 +83,8 @@ Proof      = ProofDeclaration      _* title:Inlines? LineBreak content:IndentedL
 List       = items:ListItem+ {
     return MathdocBlocks.createMathdocList(items)
 }
-    ListItem = ListDeclaration content:Inlines LineBreak { 
-        return MathdocBlocks.createListItem(content)
+    ListItem = indent:$Indent? ListDeclaration content:Inlines LineBreak { 
+        return MathdocBlocks.createListItem(content, indent)
     }
     ListDeclaration = ("*" _+) / ("-" _+) / ("+" _+)
 Image      = "!" alternative:BracketInlines reference:RoundedInlines {
@@ -124,7 +124,7 @@ TOC = ("[TOC]" / "[toc]") LineBreak {
     return MathdocBlocks.createMathdocTOC()
 }
 
-MathBlock  = _* "$$" content:MathExpression "$$" LineBreak {
+MathBlock  = Indent "$$" content:MathExpression "$$" LineBreak {
     return MathdocBlocks.createMathdocMathBlock(content)
 }
 CodeBlock  = "```" name:RawChars? LineBreak content:SourceCode "```" LineBreak {
@@ -143,7 +143,7 @@ Paragraph  = content:Inlines LineBreak {
 }
 EmptyLine  = LineBreak
 IndentedLines = IndentedLine+
-    IndentedLine = indent:$_+ content:Inlines LineBreak {
+    IndentedLine = indent:$Indent content:Inlines LineBreak {
         return MathdocBlocks.createIndentedLine(
             indent,
             content
@@ -176,7 +176,7 @@ RoundedInlines = "(" content:$[^)]+ ")"      { return content }
 MathExpression = $[^$]+
 SourceCode     = $[^`]*
 
-
+Indent      = "\t" / " "+
 LineBreak   = "\n"  {
     return MathdocBlocks.createMathdocEmptyLine()
 }
