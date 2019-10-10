@@ -32,7 +32,7 @@ export class StandardHTMLCompiler extends AbstractCompiler {
     evaluateList(block: MathdocList): string {
         return wrapHTML("ul", block.items.reduce(
             (acc, cur) => {
-                return wrapHTML("li", this.evaluate(cur.content), {})
+                return acc + wrapHTML("li", this.evaluate(cur.content), {})
             }, ""
         ), {}
         )
