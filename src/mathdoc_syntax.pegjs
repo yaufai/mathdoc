@@ -83,8 +83,8 @@ Proof      = ProofDeclaration      _* title:Inlines? LineBreak content:IndentedL
 List       = items:ListItem+ {
     return MathdocBlocks.createMathdocList(items)
 }
-    ListItem = ListDeclaration content:Inlines LineBreak { 
-        return MathdocBlocks.createListItem(content)
+    ListItem = indent:$Indent? ListDeclaration content:Inlines LineBreak { 
+        return MathdocBlocks.createListItem(content, indent)
     }
     ListDeclaration = ("*" _+) / ("-" _+) / ("+" _+)
 Image      = "!" alternative:BracketInlines reference:RoundedInlines {
@@ -124,11 +124,11 @@ TOC = ("[TOC]" / "[toc]") LineBreak {
     return MathdocBlocks.createMathdocTOC()
 }
 
-MathBlock  = _* "$$" content:MathExpression "$$" LineBreak {
+MathBlock  = Indent "$$" content:MathExpression "$$" LineBreak {
     return MathdocBlocks.createMathdocMathBlock(content)
 }
 CodeBlock  = "```" name:RawChars? LineBreak content:SourceCode "```" LineBreak {
-    return MathdocBlocks.MathdocCodeBlock(
+    return MathdocBlocks.createMathdocCodeBlock(
         content
     )
 }
@@ -143,7 +143,7 @@ Paragraph  = content:Inlines LineBreak {
 }
 EmptyLine  = LineBreak
 IndentedLines = IndentedLine+
-    IndentedLine = indent:$_+ content:Inlines LineBreak {
+    IndentedLine = indent:$Indent content:Inlines LineBreak {
         return MathdocBlocks.createIndentedLine(
             indent,
             content
@@ -151,11 +151,11 @@ IndentedLines = IndentedLine+
     }
 Bold   = StaredBold
     StaredBold = "**" content:Inlines "**" {
-    return MathdocInlines.createMathdocBold(content)
+    return MathdocInlines.createBold(content)
 }
 Italic = UnderbaredItalic
     UnderbaredItalic = "_" content:Inlines "_" {
-    return MathdocInlines.createMathdocItalic(content)
+    return MathdocInlines.createItalic(content)
 }
 Link   = content:BracketInlines reference:RoundedInlines {
     return MathdocInlines.createMathdocLink(content, reference)
@@ -176,7 +176,7 @@ RoundedInlines = "(" content:$[^)]+ ")"      { return content }
 MathExpression = $[^$]+
 SourceCode     = $[^`]*
 
-
+Indent      = "\t" / " "+
 LineBreak   = "\n"  {
     return MathdocBlocks.createMathdocEmptyLine()
 }
