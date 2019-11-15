@@ -1,5 +1,5 @@
 import { AbstractCompiler } from "./AbstractCompiler";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, BoxBody } from "./MathdocBlocks";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, BoxBody, isMathBlock } from "./MathdocBlocks";
 import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline } from "./MathdocInlines";
 import { wrapHTML } from "./CompilationUtils";
 
@@ -8,7 +8,12 @@ export class StandardHTMLCompiler extends AbstractCompiler {
     getBoxHTML(type: string, header: MathdocInline[], body: BoxBody): string {
         var box_content = body.reduce(
             (acc, cur, _) => {
-                return acc + this.evaluate(cur.content)
+                if (isMathBlock(cur)) {
+                    return acc + this.evaluate(cur)
+                } else {
+                    return acc + this.evaluate(cur.content)
+                }
+                
             },
             ""
         )

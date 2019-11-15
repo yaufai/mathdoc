@@ -224,7 +224,7 @@ export type MathdocTheorem = {
 }
 
 // TODO: adopt block elements
-export type BoxBody = IndentedLine[]
+export type BoxBody = (IndentedLine|MathdocMathBlock)[]
 
 export type IndentedLine = {
     indent : string,

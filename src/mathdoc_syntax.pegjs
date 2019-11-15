@@ -10,6 +10,9 @@
         })
         return obj;
     }
+    function getRegularBoxTitle(title) {
+        return title ? title : ""
+    }
 }
 
 Document = docConfig:DocumentConfig? pages:Pages { return { DocumentConfig: docConfig, pages: pages }}
@@ -61,21 +64,21 @@ Comment    = "<!--" _* content:$(!"-->" .)* _* "-->" {
 }
 Definition = DefinitionDeclaration _* title:Inlines? LineBreak content:IndentedLines {
     return MathdocBlocks.createMathdocDefinition(
-        title,
+        getRegularBoxTitle(title),
         content
     )
 }
     DefinitionDeclaration = "def." / "definition."
 Theorem    = TheoremDeclaration    _* title:Inlines? LineBreak content:IndentedLines {
     return MathdocBlocks.createMathdocTheorem(
-        title,
+        getRegularBoxTitle(title),
         content
     )
 }
     TheoremDeclaration    = "th."/ "theorem."
 Proof      = ProofDeclaration      _* title:Inlines? LineBreak content:IndentedLines {
     return MathdocBlocks.createMathdocProof(
-        title,
+        getRegularBoxTitle(title),
         content
     )
 }
@@ -124,7 +127,7 @@ TOC = ("[TOC]" / "[toc]") LineBreak {
     return MathdocBlocks.createMathdocTOC()
 }
 
-MathBlock  = Indent "$$" content:MathExpression "$$" LineBreak {
+MathBlock  = Indent? "$$" content:MathExpression "$$" _* LineBreak {
     return MathdocBlocks.createMathdocMathBlock(content)
 }
 CodeBlock  = "```" name:RawChars? LineBreak content:SourceCode "```" LineBreak {
@@ -142,12 +145,16 @@ Paragraph  = content:Inlines LineBreak {
     return MathdocBlocks.createMathdocParagraph(content)
 }
 EmptyLine  = LineBreak
-IndentedLines = IndentedLine+
+IndentedLines = IndentedComponents+
+    IndentedComponents = IndentedLine / IndentedMathBlock
     IndentedLine = indent:$Indent content:Inlines LineBreak {
         return MathdocBlocks.createIndentedLine(
             indent,
             content
         )
+    }
+    IndentedMathBlock = Indent "$$" content:MathExpression "$$" _* LineBreak {
+        return MathdocBlocks.createMathdocMathBlock(content)
     }
 Bold   = StaredBold
     StaredBold = "**" content:Inlines "**" {
