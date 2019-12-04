@@ -11,7 +11,7 @@
         return obj;
     }
     function getRegularBoxTitle(title) {
-        return title ? title : ""
+        return title ? title : [MathdocInlines.createMathdocRawChars("")]
     }
 }
 
