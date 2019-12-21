@@ -179,7 +179,7 @@ MathInline = "$" content:MathExpression "$" {
 CodeInline = "`" content:SourceCode "`" {
     return MathdocInlines.createMathdocCodeInline(content)
 }
-RawChars   = content:$([^\n*$_\[])+ {
+RawChars   = content:$([^`\n*$_\[])+ {
     return MathdocInlines.createMathdocRawChars(content)
 }
 

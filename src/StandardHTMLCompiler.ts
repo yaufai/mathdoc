@@ -102,11 +102,7 @@ export class StandardHTMLCompiler extends AbstractCompiler {
         return "$" + inline.content + "$"
     }
     evaluateCodeInline(inline: MathdocCodeInline): string {
-        return wrapHTML(
-            "pre",
-            wrapHTML("code", inline.content, {}),
-            {}
-        )
+        return wrapHTML("code", inline.content, {})
     }
     evaluateRawChars(inline: MathdocRawChars): string {
         return inline.content
