@@ -27,7 +27,7 @@ export function createItalic(content: MathdocInline[]): MathdocItalic {
         content: content
     }
 }
-export function createMathdocLink(content: MathdocInline[], reference: string): MathdocLink {
+export function createMathdocLink(content: MathdocRawChars, reference: string): MathdocLink {
     return {
         type   : InlineType.Link,
         content: content,
@@ -63,7 +63,7 @@ export type MathdocItalic = {
 }
 export type MathdocLink = {
     type   : InlineType,
-    content: MathdocInline[],
+    content: MathdocRawChars,
     reference: string
 }
 export type MathdocMathInline = {

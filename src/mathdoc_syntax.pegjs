@@ -177,7 +177,7 @@ RawChars   = content:$([^\n*$_\[])+ {
     return MathdocInlines.createMathdocRawChars(content)
 }
 
-BracketInlines = "[" content:$(!"]" .)* "]"  { return content }
+BracketInlines = "[" content:$(!"]" .)* "]"  { return MathdocInlines.createMathdocRawChars(content) }
 RoundedInlines = "(" content:$[^)]+ ")"      { return content }
 
 MathExpression = $[^$]+
