@@ -11,7 +11,7 @@
         return obj;
     }
     function getRegularBoxTitle(title) {
-        return title ? title : ""
+        return title ? title : [MathdocInlines.createMathdocRawChars("")]
     }
 }
 
@@ -146,7 +146,7 @@ Paragraph  = content:Inlines LineBreak {
 }
 EmptyLine  = LineBreak
 IndentedLines = IndentedComponents+
-    IndentedComponents = IndentedLine / IndentedMathBlock
+    IndentedComponents = IndentedList / IndentedLine / IndentedMathBlock
     IndentedLine = indent:$Indent content:Inlines LineBreak {
         return MathdocBlocks.createIndentedLine(
             indent,
@@ -156,6 +156,12 @@ IndentedLines = IndentedComponents+
     IndentedMathBlock = Indent "$$" content:MathExpression "$$" _* LineBreak {
         return MathdocBlocks.createMathdocMathBlock(content)
     }
+    IndentedList = items:IndentedListItem+ {
+        return MathdocBlocks.createMathdocList(items)
+    }
+        IndentedListItem = Indent indent:$Indent? ListDeclaration content:Inlines LineBreak { 
+            return MathdocBlocks.createListItem(content, indent)
+        }
 Bold   = StaredBold
     StaredBold = "**" content:Inlines "**" {
     return MathdocInlines.createBold(content)
@@ -173,7 +179,7 @@ MathInline = "$" content:MathExpression "$" {
 CodeInline = "`" content:SourceCode "`" {
     return MathdocInlines.createMathdocCodeInline(content)
 }
-RawChars   = content:$([^\n*$_\[])+ {
+RawChars   = content:$([^`\n*$_\[])+ {
     return MathdocInlines.createMathdocRawChars(content)
 }
 
