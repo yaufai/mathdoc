@@ -32,7 +32,7 @@ def. Rational preference
 ## Nodejs
 
 ```
-npm install mathdoc
+npm install -g mathdoc
 ```
 
 ## Python
@@ -40,6 +40,8 @@ npm install mathdoc
 ```
 pip3 install mathdocpy
 ```
+
+NOTE: `mathdocpy` is a simple wrapper of the parser written in NodeJS. Therefore, you are required to install npm and mathdoc by npm.
 
 # API
 
