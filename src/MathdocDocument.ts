@@ -14,3 +14,9 @@ export function createMathdocDocument(config: DocumentConfig, pages: [MathdocPag
         pages : pages
     }
 }
+
+export function convertStringToMathdocDocument(content: string): MathdocDocument {
+    // TODO: Throw an error if json is not MathdocDocument
+    let json = JSON.parse(content)
+    return json
+}
