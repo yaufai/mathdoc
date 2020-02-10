@@ -2,12 +2,12 @@
   "name": "mathdoc",
   "version": "0.0.1",
   "description": "A markdown extension for scientific writings.",
-  "main": "index.js",
+  "main": "build/Mathdoc.js",
   "bin": {
     "mathdoc": "build/index.js"
   },
   "files": [
-    "build/*.js"
+    "build/*"
   ],
   "scripts": {
     "build": "tsc && pegjs -o build/mathdoc_syntax.js src/mathdoc_syntax.pegjs",
