@@ -4,12 +4,13 @@
       "target": "es5",
       "sourceMap": true,
       "outDir": "./build",
+      "jsx": "react",
       "declaration": true
     },
     "exclude": [
       "node_modules"
     ],
     "include": [
-      "src/*.ts"
+      "src/*.ts", "src/compilers/StandardHTMLCompiler.ts", "src/compilers/AbstractCompiler.ts"
     ]
   }

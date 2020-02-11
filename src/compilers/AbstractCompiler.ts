@@ -1,6 +1,6 @@
-import { MathdocDocument } from "./MathdocDocument";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, MathdocBlock, QuoteLine, ListItem, isComment, isDefinition, isTheorem, isProof, isList, isImage, isHorizontalLine, isH6, isH5, isH4, isH3, isH2, isH1, isTOC, isMathBlock, isCodeBlock, isQuoteBlock, isParagraph, isEmptyLine, IndentedLine, BoxBody } from "./MathdocBlocks";
-import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline, isBold, isItalic, isLink, isMathInline, isCodeInline, isRawChars } from "./MathdocInlines";
+import { MathdocDocument } from "../MathdocDocument";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, MathdocBlock, QuoteLine, ListItem, isComment, isDefinition, isTheorem, isProof, isList, isImage, isHorizontalLine, isH6, isH5, isH4, isH3, isH2, isH1, isTOC, isMathBlock, isCodeBlock, isQuoteBlock, isParagraph, isEmptyLine, IndentedLine, BoxBody } from "../MathdocBlocks";
+import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline, isBold, isItalic, isLink, isMathInline, isCodeInline, isRawChars } from "../MathdocInlines";
 import { isArray } from "util";
 
 export type Evaluatable
@@ -13,25 +13,25 @@ export function isEvaluatableArray(arg: any): arg is Array<MathdocBlock|MathdocI
     return isArray(arg)
 }
 
-export abstract class AbstractCompiler {
+export abstract class AbstractCompiler<OutputType> {
     document: MathdocDocument
 
     constructor(document: MathdocDocument) {
         this.document = document
     }
 
-    compile(document: MathdocDocument): string {
+    abstract concatOutput(targets: OutputType[]): OutputType
+
+    compile(document: MathdocDocument): OutputType {
         // Adopt multiple pages
         return this.evaluate(document.pages[0].blocks)
     }
-    evaluate(element: Evaluatable): string {
+    evaluate(element: Evaluatable): OutputType {
         if (isEvaluatableArray(element)) {
-            return element.reduce(
-                (acc, cur, _) => {
-                    return acc + this.evaluate(cur)
-                },
-                ""
-            )
+            let evalResults = element.map((value) => {
+                return this.evaluate(value)
+            })
+            return this.concatOutput(evalResults)
         } else if (isComment(element)) {
             return this.evaluateComment(element)
         } else if (isDefinition(element)) {
@@ -86,32 +86,32 @@ export abstract class AbstractCompiler {
             return undefined
         }
     }
-    abstract evaluateComment(block: MathdocComment): string
-    abstract evaluateDefinition(block: MathdocDefinition): string
-    abstract evaluateTheorem(block: MathdocTheorem): string
-    abstract evaluateProof(block: MathdocProof): string
-    abstract evaluateList(block: MathdocList): string
-    abstract evaluateImage(block: MathdocImage): string
-    abstract evaluateHorizontalLine(block: MathdocHorizontalLine): string
-    abstract evaluateH6(block: MathdocH6): string
-    abstract evaluateH5(block: MathdocH5): string
-    abstract evaluateH4(block: MathdocH4): string
-    abstract evaluateH3(block: MathdocH3): string
-    abstract evaluateH2(block: MathdocH2): string
-    abstract evaluateH1(block: MathdocH1): string
-    abstract evaluateTOC(block: MathdocTOC): string
-    abstract evaluateMathBlock(block: MathdocMathBlock): string
-    abstract evaluateCodeBlock(block: MathdocCodeBlock): string
-    abstract evaluateQuoteBlock(block: MathdocQuoteBlock): string
-    abstract evaluateParagraph(block: MathdocParagraph): string
-    abstract evaluateEmptyLine(block: MathdocEmptyLine): string
+    abstract evaluateComment(block: MathdocComment): OutputType
+    abstract evaluateDefinition(block: MathdocDefinition): OutputType
+    abstract evaluateTheorem(block: MathdocTheorem): OutputType
+    abstract evaluateProof(block: MathdocProof): OutputType
+    abstract evaluateList(block: MathdocList): OutputType
+    abstract evaluateImage(block: MathdocImage): OutputType
+    abstract evaluateHorizontalLine(block: MathdocHorizontalLine): OutputType
+    abstract evaluateH6(block: MathdocH6): OutputType
+    abstract evaluateH5(block: MathdocH5): OutputType
+    abstract evaluateH4(block: MathdocH4): OutputType
+    abstract evaluateH3(block: MathdocH3): OutputType
+    abstract evaluateH2(block: MathdocH2): OutputType
+    abstract evaluateH1(block: MathdocH1): OutputType
+    abstract evaluateTOC(block: MathdocTOC): OutputType
+    abstract evaluateMathBlock(block: MathdocMathBlock): OutputType
+    abstract evaluateCodeBlock(block: MathdocCodeBlock): OutputType
+    abstract evaluateQuoteBlock(block: MathdocQuoteBlock): OutputType
+    abstract evaluateParagraph(block: MathdocParagraph): OutputType
+    abstract evaluateEmptyLine(block: MathdocEmptyLine): OutputType
 
 
-    abstract evaluateBold(inline: MathdocBold): string
-    abstract evaluateItalic(inline: MathdocItalic): string
-    abstract evaluateLink(inline: MathdocLink): string
-    abstract evaluateMathInline(inline: MathdocMathInline): string
-    abstract evaluateCodeInline(inline: MathdocCodeInline): string
-    abstract evaluateRawChars(inline: MathdocRawChars): string
+    abstract evaluateBold(inline: MathdocBold): OutputType
+    abstract evaluateItalic(inline: MathdocItalic): OutputType
+    abstract evaluateLink(inline: MathdocLink): OutputType
+    abstract evaluateMathInline(inline: MathdocMathInline): OutputType
+    abstract evaluateCodeInline(inline: MathdocCodeInline): OutputType
+    abstract evaluateRawChars(inline: MathdocRawChars): OutputType
     
 }

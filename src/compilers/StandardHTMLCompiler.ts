@@ -1,10 +1,16 @@
 import { AbstractCompiler } from "./AbstractCompiler";
-import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, BoxBody, isMathBlock, isList } from "./MathdocBlocks";
-import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline } from "./MathdocInlines";
-import { wrapHTML } from "./CompilationUtils";
+import { MathdocComment, MathdocDefinition, MathdocTheorem, MathdocProof, MathdocList, MathdocImage, MathdocHorizontalLine, MathdocH6, MathdocH5, MathdocH4, MathdocH3, MathdocH2, MathdocH1, MathdocTOC, MathdocMathBlock, MathdocCodeBlock, MathdocQuoteBlock, MathdocParagraph, MathdocEmptyLine, BoxBody, isMathBlock, isList } from "../MathdocBlocks";
+import { MathdocBold, MathdocItalic, MathdocLink, MathdocMathInline, MathdocCodeInline, MathdocRawChars, MathdocInline } from "../MathdocInlines";
+import { wrapHTML } from "../CompilationUtils";
 
 
-export class StandardHTMLCompiler extends AbstractCompiler {
+export class StandardHTMLCompiler extends AbstractCompiler<string> {
+    concatOutput(targets: string[]): string {
+        return targets.reduce(
+            (acc, cur) => acc + cur,
+            ""
+        )
+    }
     getBoxHTML(type: string, header: MathdocInline[], body: BoxBody): string {
         var box_content = body.reduce(
             (acc, cur, _) => {
