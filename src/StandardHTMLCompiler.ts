@@ -17,9 +17,9 @@ export class StandardHTMLCompiler extends AbstractCompiler {
             },
             ""
         )
-        var box_body    = wrapHTML("p", box_content, {"class": type + "_box_body" })
-        var header_flag = wrapHTML("span", type + ". ", {"class": type + "_box_flag"})
-        var header_body = wrapHTML("span", header_flag + this.evaluate(header), {"class": type + "_box_title"})
+        var box_body    = wrapHTML("p", box_content, {"class": '"' + type + "_box_body" +'"' })
+        var header_flag = wrapHTML("span", type + ". ", {"class": '"' + type + "_box_flag" + '"'})
+        var header_body = wrapHTML("span", header_flag + this.evaluate(header), {"class": '"' + type + "_box_title" + '"'})
         return wrapHTML("div", header_body + box_body, { "class": '"' + type + '_box common_box"' })
     }
     evaluateComment(block: MathdocComment): string {

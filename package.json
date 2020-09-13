@@ -1,6 +1,6 @@
 {
   "name": "mathdoc",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A markdown extension for scientific writings.",
   "main": "index.js",
   "bin": {
