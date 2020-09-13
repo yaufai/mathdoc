@@ -19,13 +19,18 @@ $$\frac{df}{dx}(x_0) = 0$$
 We can insert a CSS-empowered beautiful box to describe definition, theorem, proof and others into our documents easily.
 Here is an example:
 ```
-def. Rational preference
-    A preference $R$ over $X$ is rational if and only if
-    (1) For any $x, y \in X$, it holds $(x,y) \in R$ or $(y,x) \in R$
-    (2) For any $x, y, z \in X$, if $(x,y) \in R$ and $(y,z) \in R$, then $(x,z) \in R$
-
-
+def. Convex set
+    A subset $S \subset \mathbb{R}^n$ is a convex set if and only if
+    $$tx + (1-t)y \in S$$
+    for any $x, y \in S$ and $t \in [0, 1]$.
 ```
+
+![sample1-rendering](sample/sample1.png)
+
+Of course, you can render various components by using custom CSS!
+
+![sample2-rendering](sample/sample2.png)
+
 
 # Install
 

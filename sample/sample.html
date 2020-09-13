@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./sample2.css">
+        <script>
+            MathJax = {
+              chtml: {
+                matchFontHeight: false
+              },
+              tex: {
+                inlineMath: [['$', '$']]
+              }
+            };
+        </script>
+        <script id="MathJax-script" async
+              src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+        </script>
+    </head>
+    <body>
+        <div class="def_box common_box"><span class="def_box_title"><span class="def_box_flag">def. </span>Convex set</span><p class="def_box_body">A subset $S \subset \mathbb{R}^n$ is a convex set if and only if$$tx + (1-t)y \in S$$for any $x, y \in S$ and $t \in [0, 1]$.</p></div><br><br><div class="th_box common_box"><span class="th_box_title"><span class="th_box_flag">th. </span>Arithmetics of convex sets</span><p class="th_box_body">For any convex subsets $S, T \subset \mathbb{R}^n$,$$S +T = \{s + t| s\in S, t \in T\}$$is again a convex set.</p></div><br><div class="pf_box common_box"><span class="pf_box_title"><span class="pf_box_flag">pf. </span></span><p class="pf_box_body">Take any $x, y \in S + T$. There some $x_s, x_t, y_s, y_t$ exist such that$$x = x_s + x_t $$$$y = y_s + y_t $$Take any $a \in [0, 1]$ and consider $ax + (1-a)y$.$$ax + (1-a)y = [ax_s + (1-a)y_s] + [ax_t + (1-a)y_t]$$Since $ax_s + (1-a)y_s \in S$, $ax_t + (1-a)y_t \in T$, $ax + (1-a)y$ is a member of $S+T$.</p></div><br><br>
+    </body>
+</html>
